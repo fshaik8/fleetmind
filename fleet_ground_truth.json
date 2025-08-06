@@ -1,0 +1,58 @@
+[
+  {
+    "trip_id": "trip_f30a395f",
+    "scenario": {
+      "scenario_id": "vh_overheat_01",
+      "scenario_type": "vehicle_health",
+      "description": "Gradual engine temperature increase to dangerous levels.",
+      "expected_detection": {
+        "agent": "VehicleHealthAgent",
+        "alert_type": "engine_overheat",
+        "severity": "critical",
+        "recommendation": "Advise driver to stop immediately and service the vehicle."
+      },
+      "data_modifications": {
+        "engine_temp": "increase_to:115",
+        "dtc_codes": "set:P0217",
+        "mil_status": "set:True"
+      }
+    }
+  },
+  {
+    "trip_id": "trip_a26a6d34",
+    "scenario": {
+      "scenario_id": "vh_low_battery_02",
+      "scenario_type": "vehicle_health",
+      "description": "Battery voltage drops below critical threshold while engine is running.",
+      "expected_detection": {
+        "agent": "VehicleHealthAgent",
+        "alert_type": "low_battery_voltage",
+        "severity": "warning",
+        "recommendation": "Check alternator and battery health at next service."
+      },
+      "data_modifications": {
+        "battery_voltage": "decrease_to:11.5",
+        "dtc_codes": "set:P0562"
+      }
+    }
+  },
+  {
+    "trip_id": "trip_2c8d7fa4",
+    "scenario": {
+      "scenario_id": "db_aggressive_driver_01",
+      "scenario_type": "driver_behavior",
+      "description": "Driver with frequent hard braking and rapid acceleration events.",
+      "expected_detection": {
+        "agent": "DriverBehaviorAgent",
+        "safety_score": "<50",
+        "primary_issue": "aggressive_driving",
+        "recommendation": "Recommend driver coaching on smooth acceleration and braking."
+      },
+      "data_modifications": {
+        "hard_accel_event": "inject_events:15",
+        "hard_brake_event": "inject_events:12",
+        "fuel_flow_rate": "increase_by_percent:20"
+      }
+    }
+  }
+]
